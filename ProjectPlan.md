@@ -76,11 +76,78 @@ Relevant attributes in this dataset include:
 
 These variables represent key atmospheric conditions that may impact flight operations.
 
+### Dataset Integration
+
+The two datasets are going to be integrated using shared attributes:
+
+- Airport location
+- Date or timestamp
+
+These flight records contain airport codes for the origin airport, while the weather data contains weather station identifiers. Since many weather stations are located at or near airports, weather observations can be matched to flight records based on location and time.
+
+To align the datasets, the timestamps may be aggregated to a daily level or matched within hourly time windows. This integration will allow us to analyze the weather conditions corresponding to each flight record.
+
+ **Data acquisition**  
+  
+1. Downloading datasets from official government sources (BTS and NOAA).
+
+2. **Data storage and organization**  
+   Storing raw datasets within the project repository using organized directory structures.
+
+3. **Data profiling and quality assessment**  
+   Examining datasets for missing values, inconsistent formats, and potential outliers.
+
+4. **Data cleaning and transformation**  
+   Converting timestamps to consistent formats, handling missing values, and filtering relevant variables.
+
+5. **Data integration**  
+   Merging flight data with weather observations using shared attributes such as airport location and date.
+
+6. **Data analysis and visualization**  
+   Exploring relationships between weather variables and flight delays using statistical analysis and visualizations.
+
+7. **Documentation and reproducibility**  
+   Documenting the workflow and providing scripts that allow others to reproduce the analysis.
 
 
+## Storage and Organization
+
+The project repository will follow a structured directory layout to organize datasets, scripts, and results:
+
+Raw datasets will remain unchanged to preserve provenance. Processed datasets will be generated through cleaning and integration scripts.
 
 ## Timeline
 
+| Week | Task | Description | Responsible |
+|-----|------|-------------|-------------|
+| Week 1 | Dataset acquisition | Download and inspect datasets | Dashank |
+| Week 2 | Data profiling | Assess dataset structure and quality | Both |
+| Week 3 | Data cleaning | Handle missing values and format inconsistencies | Farwah |
+| Week 4 | Data integration | Merge flight and weather datasets | Farwah |
+| Week 5 | Exploratory analysis | Generate summary statistics and visualizations | Dashank |
+| Week 6 | Workflow automation | Develop reproducible scripts | Both |
+| Week 7 | Documentation | Prepare project report and final submission | Both |
+
 ## Constraints
 
+Several challenges may affect the project:
+
+- Weather station identifiers may not directly correspond to airport codes.
+- Some weather observations may contain missing values.
+- Flight datasets are very large and may require filtering for efficient processing.
+- Timestamps between flight data and weather observations may not align perfectly.
+
+These challenges will be addressed through data cleaning, aggregation, and filtering techniques.
+
+
 ## Gaps
+
+Some aspects of the project require further exploration:
+
+- Determining which airports will be included in the analysis
+- Identifying the best method to map weather stations to airport locations
+- Selecting the most relevant weather variables for analysis
+- Determining which visualization and statistical methods will be used
+
+So these details will be refined during the data exploration stage of the project.
+
