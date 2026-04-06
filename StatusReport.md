@@ -85,6 +85,95 @@ We have organized our repository to support reproducibility:
 We plan to add scripts for cleaning, integration, and analysis in the `scripts/` directory.
 
 ---
+### 5. Repository Organization
+
+We have organized our repository to support reproducibility:
+
+To ensure reproducibility, we will develop a structured workflow that automates the process from data acquisition to analysis. This workflow will include scripts for loading data, cleaning datasets, integrating the data, and generating results.
+
+We plan to organize our scripts as follows:
+- `clean_data.py` for preprocessing both datasets
+- `merge_data.py` for integrating flight and weather data
+- `analysis.py` for generating summary statistics and visualizations
+
+All steps will be documented so that another user can reproduce the results by following the same sequence of operations. Additionally, we will clearly specify file paths, dependencies, and execution steps within our repository.
+
+This approach ensures transparency and aligns with the reproducibility requirements outlined in the project guidelines.
+
+We plan to add scripts for cleaning, integration, and analysis in the `scripts/` directory.
+
+---
+
+## Updated Timeline
+
+| Task | Status | Updated Plan |
+|------|--------|-------------|
+| Dataset acquisition | Completed | No changes |
+| Data profiling | Completed | No changes |
+| Data cleaning | In progress | Complete within next week |
+| Data integration | Not started | Begin after cleaning |
+| Exploratory analysis | Not started | Start after integration |
+| Visualization | Not started | Final phase |
+| Documentation | In progress | Ongoing |
+
+---
+
+## Changes to Project Plan
+
+Based on our progress and feedback from Milestone 2, we have made the following updates:
+
+1. **Added specific dataset URLs**  
+   We now explicitly include dataset links to improve reproducibility and clarity.
+
+2. **Clarified licensing and data format**  
+   We identified that both datasets are publicly available government data in CSV format, ensuring compliance with project requirements.
+
+3. **Refined integration strategy**  
+   We recognized that weather station IDs must be mapped to airport codes, which was not fully addressed in the original plan.
+
+4. **Decided to aggregate weather data**  
+   Instead of using raw hourly observations, we plan to aggregate weather variables to a daily level to match the flight dataset.
+
+These changes improve the clarity and feasibility of our project.
+
+---
+
+## Challenges and Solutions
+
+### Challenge 1: Dataset Size
+The flight dataset is very large, which can slow down processing.
+
+**Solution:**  
+We plan to filter the dataset to a subset of major airports (e.g., ORD, ATL, JFK) to make processing more efficient.
+
+---
+
+### Challenge 2: Different Identifiers
+The weather dataset uses station IDs, while the flight dataset uses airport codes.
+
+**Solution:**  
+We will create a mapping between weather stations and airport codes using publicly available station metadata or manual mapping for selected airports.
+
+---
+
+### Challenge 3: Time Alignment
+The weather dataset is hourly, while the flight dataset is daily.
+
+**Solution:**  
+We will aggregate weather data to daily averages or summaries to align with flight dates.
+
+---
+
+### Challenge 4: Missing Values
+Both datasets contain missing or inconsistent values.
+
+**Solution:**  
+We will apply cleaning techniques such as:
+- removing rows with missing key fields
+- imputing values where appropriate
+- filtering out extreme outliers
+
+---
 
 ## Team Contributions
 
@@ -94,6 +183,21 @@ We plan to add scripts for cleaning, integration, and analysis in the `scripts/`
 - Conducted initial exploration of the flight dataset
 - Contributed to writing and revising this status report
 
----
+### Farwah Husain
+- Led data cleaning and preprocessing efforts
+- Explored the structure of the weather dataset
+- Developed initial plan for dataset integration
+- Contributed to writing and revising this status report
 
+## Next Steps
+
+In the next phase of the project, we will:
+
+- Complete data cleaning for both datasets
+- Create mapping between airport codes and weather stations
+- Merge the datasets using shared attributes
+- Perform exploratory analysis and generate visualizations
+- Begin documenting the workflow for reproducibility
+
+These steps will prepare us for the final stages of the project, including analysis, visualization, and reporting.
 
