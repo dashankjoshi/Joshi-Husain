@@ -86,3 +86,14 @@ We plan to add scripts for cleaning, integration, and analysis in the `scripts/`
 
 ---
 
+## Team Contributions
+
+### Dashank Joshi
+- Led dataset acquisition and verification of sources
+- Organized repository structure and documentation
+- Conducted initial exploration of the flight dataset
+- Contributed to writing and revising this status report
+
+---
+
+
