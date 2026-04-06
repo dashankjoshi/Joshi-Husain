@@ -15,11 +15,11 @@ Since submitting our project plan, we have made progress in data acquisition, in
 We successfully downloaded both datasets described in our project plan:
 
 - **Flight Dataset (BTS)**  
-  Stored in: `data/raw/T_ONTIME_REPORTING.csv`  
+  Stored in: `data/raw/flights.csv`  
   Source: https://transtats.bts.gov/DL_SelectFields.aspx?gnoyr_VQ=FGJ&QO_fu146_anzr=b0-gvzr  
 
 - **Weather Dataset (NOAA Global Hourly Data)**  
-  Stored in: `data/raw/4252569.csv`  
+  Stored in: `data/raw/weather.csv`  
   Source: https://www.ncei.noaa.gov/access/search/data-search/global-hourly  
 
 Both datasets are in CSV format and come from U.S. government sources, ensuring reliability and compliance with open data policies.
