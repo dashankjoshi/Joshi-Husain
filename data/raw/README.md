@@ -3,8 +3,8 @@
 This folder is for the raw datasets used in the project.
 
 Files:
-- `weather_2019.csv`: NOAA Global Hourly weather dataset.
-- `flights_2019.csv`: BTS Airline On-Time Performance dataset.
+- `weather_2019.csv`: NOAA Global Hourly weather dataset stored in this folder.
+- `flights_2019.csv`: BTS Airline On-Time Performance dataset stored externally through Box due to file size. Download instructions are below.
 
 ## Flight Dataset
 
