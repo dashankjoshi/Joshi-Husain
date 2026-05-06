@@ -1,0 +1,6 @@
+metric,value
+cleaned_flight_rows,104619
+cleaned_weather_rows,365
+flight_rows_eligible_for_merge,23290
+integrated_rows,23290
+airports_integrated,ORD
