@@ -2,8 +2,8 @@
 
 ## Contributors
 
-- Dashank Joshi, NetID: [add NetID]
-- Farwah Husain, NetID: [add NetID]
+- Dashank Joshi, NetID: djosh4
+- Farwah Husain, NetID: fhusa3
 
 ### Contribution Statement
 
