@@ -1,0 +1,3 @@
+precipitation_day,flight_count,avg_departure_delay,median_departure_delay,delayed_flight_rate,avg_reported_weather_delay
+False,8804,7.537937301226715,-3.0,15.742844161744662,1.2885052248977737
+True,14486,26.170716553914122,1.5,34.17782686732017,4.5966450365870495

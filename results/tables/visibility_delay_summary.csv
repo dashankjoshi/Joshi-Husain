@@ -1,0 +1,3 @@
+low_visibility_day,flight_count,avg_departure_delay,median_departure_delay,delayed_flight_rate,avg_reported_weather_delay
+False,22608,16.810819179051663,-1.0,25.86252653927813,2.8190021231422504
+True,682,95.91495601173021,49.0,71.8475073313783,20.819648093841643

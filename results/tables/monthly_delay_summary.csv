@@ -1,0 +1,2 @@
+month,flight_count,avg_departure_delay,delayed_flight_rate,avg_precipitation,avg_visibility,avg_wind_speed
+1,23290,19.127221983683985,27.20910261914985,7.329892657793045,12784.094572691221,4.565198775189053
