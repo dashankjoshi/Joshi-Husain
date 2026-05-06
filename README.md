@@ -128,3 +128,119 @@ The cleaned outputs are stored in:
 - `data/processed/flights_cleaned.csv`
 - `data/processed/weather_cleaned.csv`
 
+## Data Integration
+
+Data integration was performed using `scripts/04_integrate_data.py`. The flight dataset used airport codes, while the weather dataset used NOAA station identifiers. To connect the datasets, we created a station-to-airport mapping for ORD. This was necessary because the two datasets did not share a single direct identifier.
+
+The integration used two main keys:
+
+- origin airport
+- date
+
+The weather data was first aggregated to the daily level. Then, ORD flight records were matched with ORD weather observations by date. The final integrated dataset is stored as:
+
+`data/processed/integrated_flights_weather.csv`
+
+The integration summary showed:
+
+- Cleaned flight rows: 104,619
+- Cleaned weather rows: 365
+- Flight rows eligible for merge: 23,290
+- Integrated rows: 23,290
+- Airport integrated: ORD
+
+This means that all eligible ORD flight rows were successfully matched with daily weather observations. The integrated dataset allowed us to compare departure delays across different weather conditions.
+
+## Findings
+
+The final analysis was performed using `scripts/05_analyze_visualize.py`. The results are stored in `results/tables/` and `results/figures/`. The main outputs include summary tables comparing delays on precipitation days, low visibility days, and high wind days, as well as visualizations showing average delay patterns.
+
+One of the clearest findings was that precipitation days were associated with higher departure delays than non-precipitation days. On days without precipitation, the average departure delay was 7.54 minutes and the delayed flight rate was 15.74%. On precipitation days, the average departure delay increased to 26.17 minutes and the delayed flight rate increased to 34.18%. This means that flights on precipitation days were delayed more than twice as often as flights on days without precipitation. The average reported weather delay was also higher on precipitation days, increasing from 1.29 minutes to 4.60 minutes. This supports the idea that precipitation has a measurable relationship with flight disruptions.
+
+Low visibility had an even stronger relationship with delays. On days without low visibility, the average departure delay was 16.81 minutes and the delayed flight rate was 25.86%. On low visibility days, the average departure delay increased to 95.91 minutes and the delayed flight rate rose to 71.85%. The median delay also increased substantially, from -1.0 minutes on normal visibility days to 49.0 minutes on low visibility days. This suggests that low visibility was not just associated with a few extreme delays, but with a broader shift toward delayed departures. The average reported weather delay was also much higher on low visibility days: 20.82 minutes compared to 2.82 minutes on days without low visibility.
+
+Wind was also considered, but our high-wind indicator did not identify any high-wind days based on the threshold used in the script. Because of this, we cannot draw strong conclusions about high-wind days from this dataset. Wind speed is still included in the integrated dataset, but a different threshold or a longer time period may be needed to study wind effects more meaningfully.
+
+The monthly summary only included January in the integrated data, so seasonal comparisons were limited. For January, the average departure delay was 19.13 minutes, and 27.21% of flights were delayed by more than 15 minutes. Overall, the findings indicate that precipitation and especially low visibility were associated with greater departure delays at ORD during the selected period.
+
+## Future Work
+
+One major area for future work would be expanding the analysis to include more airports. Our original project plan considered multiple major airports, but the final analysis focuses on Chicago O'Hare. We made this adjustment because the NOAA weather dataset available for our workflow corresponded to the ORD weather station, which allowed us to create a clearer and more reliable linkage between airport flight records and daily weather observations. In the future, we could download additional NOAA weather files for airports such as ATL, JFK, LAX, and DFW. This would allow us to compare how different airports respond to similar weather conditions and determine whether ORD is more or less sensitive to weather disruptions than other major hubs.
+
+Another improvement would be using hourly matching instead of daily aggregation. In this project, hourly weather observations were summarized into daily values so they could be merged more easily with flight records. While this approach worked, it may hide important details. For example, a storm that occurs in the morning may affect morning flights more than evening flights. Similarly, low visibility during only one part of the day may not explain delays for flights much later in the day. Future analysis could match each flight to the nearest weather observation based on scheduled departure time. This would allow for a more precise connection between weather conditions and individual flight outcomes.
+
+We could also improve the analysis by using additional weather variables. This project focused on precipitation, visibility, temperature, and wind speed, but other conditions may also matter. Snow, cloud cover, pressure changes, runway visibility, and severe weather indicators could provide a more complete picture of how weather affects flight operations. Since Chicago has winter weather that can strongly affect airport operations, adding snow and ice-related variables would likely be useful.
+
+Another direction for future work would be to use more advanced statistical methods. Our current analysis is mostly exploratory and compares average delays under different weather conditions. Future work could use regression models to estimate the relationship between weather variables and delay length while controlling for factors such as airline, destination, distance, and month. A classification model could also be used to predict whether a flight is likely to be delayed by more than 15 minutes.
+
+Finally, future work could improve the reproducibility workflow by using Snakemake instead of a simple `run_all.py` script. The current workflow is reproducible because the scripts can be run in order, but Snakemake would make dependencies between files more explicit and avoid rerunning unnecessary steps. This would be especially helpful if the project were expanded to more airports or a longer time period.
+
+## Challenges
+
+One of the biggest challenges was working with large datasets. The raw BTS flight file was larger than 50MB, which made it difficult to store directly in GitHub. GitHub also has limits for uploading files through the browser, so we had to decide how to make the dataset accessible while still following the project requirements. To address this, we stored the flight file externally through Box and documented where users should download it and save it in the repository. This helped keep the repository organized while still supporting reproducibility.
+
+Another challenge was the difference in identifiers between the datasets. The flight dataset used airport codes such as ORD, while the weather dataset used NOAA station identifiers. These identifiers do not automatically match, so we had to create a station-to-airport mapping. For the final project, we mapped the NOAA station in our weather dataset to Chicago O'Hare. This step was important because the quality of the integration depended on accurately linking the flight records to the correct weather station.
+
+The NOAA weather fields were also challenging because they were encoded rather than already cleaned numeric variables. Temperature, visibility, wind speed, and precipitation each had to be parsed from formatted strings. In addition, NOAA uses special missing-value codes, which needed to be identified and handled during cleaning. This made the weather cleaning process more complicated than simply loading a CSV and selecting columns. However, this also made the project more realistic because it required actual data wrangling rather than using an analysis-ready dataset.
+
+A final challenge was the change in scope from the original project plan. Initially, we intended to analyze and compare multiple major airports. However, after working with the actual NOAA data, we realized that the downloaded weather dataset corresponded to Chicago O'Hare. Instead of expanding the project with weaker or incomplete weather matches, we narrowed the analysis to ORD. This made the final integration more accurate, transparent, and reproducible. Although this reduced the geographic scope of the project, it improved the reliability of the final dataset and made the analysis easier to explain clearly.
+
+## Reproducing
+
+To reproduce this project:
+
+1. Clone or download this GitHub repository.
+
+2. Install the required Python packages:
+
+```bash
+pip install -r requirements.txt
+```
+
+3. Download the raw flight dataset from the Box link listed in `data/raw/README.md`.
+
+4. Save the file exactly as:
+
+```text
+data/raw/flights_2019.csv
+```
+
+5. Confirm that the weather dataset exists at:
+
+```text
+data/raw/weather_2019.csv
+```
+
+6. Run the full workflow:
+
+```bash
+python run_all.py
+```
+
+This will run the scripts in order:
+
+```text
+scripts/01_profile_data.py
+scripts/02_clean_flights.py
+scripts/03_clean_weather.py
+scripts/04_integrate_data.py
+scripts/05_analyze_visualize.py
+```
+
+The workflow generates processed datasets in `data/processed/`, summary tables in `results/tables/`, and visualizations in `results/figures/`.
+
+## References
+
+Bureau of Transportation Statistics. Airline On-Time Performance Data. U.S. Department of Transportation. https://transtats.bts.gov/DL_SelectFields.aspx?gnoyr_VQ=FGJ&QO_fu146_anzr=b0-gvzr
+
+National Oceanic and Atmospheric Administration. Global Hourly Weather Data. National Centers for Environmental Information. https://www.ncei.noaa.gov/access/search/data-search/global-hourly
+
+Python Software Foundation. Python Programming Language. https://www.python.org/
+
+The pandas development team. pandas: Python Data Analysis Library. https://pandas.pydata.org/
+
+Hunter, J. D. Matplotlib: A 2D Graphics Environment. Computing in Science & Engineering. https://matplotlib.org/
+
+Harris, C. R., Millman, K. J., van der Walt, S. J., et al. Array programming with NumPy. Nature. https://numpy.org/
+
+
